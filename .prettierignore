@@ -1,0 +1,14 @@
+
+/coverage
+/dist
+/examples
+/node_modules
+/package-lock.json
+/yarn.lock
+/scripts
+/build
+/babel*
+lib/
+ios/
+android/
+.expo/
