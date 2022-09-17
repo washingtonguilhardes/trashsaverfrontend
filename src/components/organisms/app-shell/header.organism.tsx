@@ -38,7 +38,7 @@ export function Header(props: HeaderProps) {
                 </IconButton>
               </Grid>
             )}
-            <Grid item xs={8} sm={10} sx={{ display: 'flex', alignItems: 'center' }}>
+            <Grid item xs={6} sm={10} sx={{ display: 'flex', alignItems: 'center' }}>
               {primaryAction ? primaryAction() : null}
               <Typography
                 sx={{
@@ -60,8 +60,9 @@ export function Header(props: HeaderProps) {
             {status === 'authenticated' && (
               <Grid
                 item
-                xs={2}
-                sx={{ display: { sm: 'flex' }, justifyContent: 'flex-end' }}
+                xs={4}
+                sm={2}
+                sx={{ display: { sm: 'flex', xs: 'flex' }, justifyContent: 'flex-end' }}
               >
                 <Logout
                   avatar={data.user?.image ?? ''}

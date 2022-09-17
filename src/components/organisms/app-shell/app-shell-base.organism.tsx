@@ -11,6 +11,7 @@ import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
+import { Registration } from '../registration';
 import { Navigator } from './navigator.organism';
 
 function Copyright() {
@@ -35,9 +36,8 @@ interface Props {
 }
 
 export function AppShellBase(props: React.PropsWithChildren<Props>) {
-  const { status } = useSession();
+  const { status, data } = useSession();
   const { header, containerWidth, children } = props;
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const theme = useTheme();
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
@@ -47,9 +47,8 @@ export function AppShellBase(props: React.PropsWithChildren<Props>) {
   };
   return (
     <>
-      {status === 'authenticated' && (
-        <Box sx={{ display: 'flex', minHeight: '100vh' }}>
-          <CssBaseline />
+      <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+        {status === 'authenticated' && (
           <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
             {isSmUp ? null : (
               <Navigator
@@ -64,23 +63,22 @@ export function AppShellBase(props: React.PropsWithChildren<Props>) {
               sx={{ display: { sm: 'block', xs: 'none' } }}
             />
           </Box>
-          <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-            {header ? header({ handleDrawerToggle }) : null}
-            <Box
-              component="main"
-              sx={{ flex: 1, bgcolor: '#eaeff1', maxWidth: containerWidth }}
-            >
-              {children}
-            </Box>
-            <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
-              <Copyright />
-            </Box>
+        )}
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          {header ? header({ handleDrawerToggle }) : null}
+          <Box
+            component="main"
+            sx={{ flex: 1, bgcolor: '#eaeff1', maxWidth: containerWidth }}
+          >
+            {status === 'authenticated' && data.userRoles.length > 0 ? children : ''}
+            {status === 'authenticated' && !data.userRoles.length ? <Registration /> : ''}
+          </Box>
+          <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
+            <Copyright />
           </Box>
         </Box>
-      )}
-      {status === 'unauthenticated' && (
-        <Redirect to={`/login?callbackUrl=${router.asPath}`} />
-      )}
+      </Box>
+      {status === 'unauthenticated' && <Redirect to={`/login`} />}
     </>
   );
 }

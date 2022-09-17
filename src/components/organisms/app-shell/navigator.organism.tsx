@@ -1,3 +1,6 @@
+import { useRoles } from '@src/hooks/roles';
+import { UserRole } from '@src/types/user.type';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { NextRouter, useRouter } from 'next/router';
 
@@ -14,20 +17,24 @@ type NavigatorItem = {
   id: string;
   href: string;
   icon?: JSX.Element;
+  noRole?: boolean;
   activeCheck?: (router: NextRouter, currentHref: string) => boolean;
 };
 
-const categories: { id: string; role: string[]; children: NavigatorItem[] }[] = [
+const categories: { id: string; role: UserRole[]; children: NavigatorItem[] }[] = [
+  {
+    id: 'Profile',
+    role: [UserRole.COLLECTOR, UserRole.SHARER],
+    children: [{ href: '/profile/addresses', id: 'Addresses' }],
+  },
   {
     id: 'My Shares',
-
-    role: [],
+    role: [UserRole.SHARER],
     children: [],
   },
   {
     id: 'My Grabage Collections',
-
-    role: [],
+    role: [UserRole.COLLECTOR],
     children: [],
   },
 ];
@@ -49,25 +56,29 @@ const itemCategory = {
 
 export function Navigator(props: DrawerProps) {
   const router = useRouter();
+  const { canUse } = useRoles();
   return (
     <Drawer variant="permanent" {...props}>
       <List disablePadding>
-        <ListItem
-          sx={{
-            ...item,
-            ...itemCategory,
-            textAlign: 'center',
-            fontSize: 22,
-            color: '#fff',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          Trash Saver
-        </ListItem>
+        <Link href="/">
+          <ListItem
+            sx={{
+              ...item,
+              ...itemCategory,
+              cursor: 'pointer',
+              textAlign: 'center',
+              fontSize: 22,
+              color: '#fff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            Trash Saver
+          </ListItem>
+        </Link>
         {categories.map(({ id, children, role }) => {
-          if (!role.includes('access.capability')) {
+          if (!canUse(role)) {
             return null;
           }
           return (

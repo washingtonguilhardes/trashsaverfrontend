@@ -21,11 +21,15 @@ export default NextAuth({
         });
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
-        if (user) {
-          token.appUser = user;
-        }
+        token.appUser = user;
       }
       return token;
+    },
+    async session({ token, session }) {
+      const user = await httpClient.setToken(token.accessToken).request<User>(client => {
+        return client.get(`/user/${token.appUser.id}`);
+      });
+      return { ...session, userRoles: user.roles, userId: token.appUser.id };
     },
   },
   pages: {

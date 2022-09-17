@@ -1,6 +1,6 @@
 import { User } from '@src/types/user.type';
 import { JWT } from 'next-auth/jwt';
-import { Session } from 'next-auth';
+import { Session, User as NextAuthUser } from 'next-auth';
 import * as yup from 'yup';
 
 declare module 'yup' {
@@ -23,6 +23,7 @@ declare module 'next-auth/jwt' {
 }
 declare module 'next-auth' {
   interface Session {
-    appUser: User;
+    userId: User['id'];
+    userRoles: User['roles'];
   }
 }

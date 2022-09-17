@@ -1,17 +1,13 @@
-import React from 'react';
-
 import { AppShellBase, Header } from '@src/components/organisms/app-shell';
 
-export default function Home() {
+export default function Addresses() {
   return (
     <AppShellBase
       header={({ handleDrawerToggle }) => (
-        <Header pageTitle="" onDrawerToggle={handleDrawerToggle} />
+        <Header pageTitle="My Addresses" onDrawerToggle={handleDrawerToggle} />
       )}
     >
-      INDEX
+      OK
     </AppShellBase>
   );
 }
-
-Home.auth = true;

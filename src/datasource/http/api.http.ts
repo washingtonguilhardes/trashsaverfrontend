@@ -52,8 +52,9 @@ class HttpClient {
     const data = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     const requestClient = this.client(url, { authorization: `Bearer ${data.idToken}` });
 
-    return await requestClient.request<T>({
+    return requestClient.request<T>({
       method: req.method as Method,
+      data: req.body,
     });
   }
 
