@@ -7,10 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import { LoaderButton } from '../loader-button';
+
 interface ActionPerformDialogProps {
   children(params: { handleClickOpen(): void; handleClickClose(): void });
   onClickConfirm?: () => void;
   onClickDismiss?: () => void;
+  isLoading?: boolean;
   confirmText?: string;
   dismissText?: string;
   dialogTitle: string;
@@ -24,6 +27,7 @@ export function ActionPerformDialog(props: ActionPerformDialogProps) {
     confirmText,
     dismissText,
     dialogTitle,
+    isLoading,
     dialogDescription,
     onClickDismiss,
   } = props;
@@ -59,8 +63,10 @@ export function ActionPerformDialog(props: ActionPerformDialogProps) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClickClose(false)}>{dismissText ?? 'Não'}</Button>
-          <Button onClick={handleClickClose(true)}>{confirmText ?? 'Sim'}</Button>
+          <Button onClick={handleClickClose(false)}>{dismissText ?? 'Cancel'}</Button>
+          <LoaderButton isLoading={isLoading} onClick={handleClickClose(true)}>
+            {confirmText ?? 'Yes'}
+          </LoaderButton>
         </DialogActions>
       </Dialog>
     </>

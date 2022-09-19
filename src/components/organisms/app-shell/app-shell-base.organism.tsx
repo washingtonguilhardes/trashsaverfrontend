@@ -2,10 +2,8 @@ import * as React from 'react';
 
 import { Redirect } from '@src/components/atoms/redirect';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
 
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Link from '@mui/material/Link';
 import { useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
@@ -18,8 +16,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Sistema de Notificações TJ RN
+      <Link color="inherit" href="/">
+        Trash Saver
       </Link>{' '}
       {new Date().getFullYear()}.
     </Typography>

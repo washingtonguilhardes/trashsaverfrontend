@@ -26,3 +26,5 @@ export const dismiss = toast.dismiss;
 
 export const notify = ({ type, message }: { type: TypeOptions; message: string }) =>
   toast[type](message);
+
+export const notifypromise = toast.promise;

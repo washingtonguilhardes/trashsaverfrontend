@@ -3,7 +3,7 @@ import { User } from '@src/types/user.type';
 import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -35,4 +35,6 @@ export default NextAuth({
   pages: {
     signIn: '/login',
   },
-});
+};
+
+export default NextAuth(authOptions);
