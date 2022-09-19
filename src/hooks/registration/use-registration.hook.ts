@@ -31,7 +31,6 @@ export function useRegistration(
   const request = useMutation<unknown, Error, RegistrationFields>(
     'use-registration-mutation',
     ({ roles }) => {
-      console.log({ roles, userId });
       return browserHttpClient.patch(`/user/${userId}/roles`, roles);
     },
     options

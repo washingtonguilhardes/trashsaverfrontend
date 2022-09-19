@@ -12,7 +12,6 @@ export const authOptions = {
   ],
   callbacks: {
     async jwt({ token, account }) {
-      console.log('JWT', JSON.stringify({ token, account }));
       if (account) {
         const user = await httpClient.setToken(account.id_token).request<User>(client => {
           return client.post('/user', {
