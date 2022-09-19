@@ -1,4 +1,5 @@
-import axios, { AxiosInstance, AxiosResponse, Method } from 'axios';
+import { ApiError } from '@src/types/api-error.type';
+import axios, { Axios, AxiosInstance, AxiosResponse, Method } from 'axios';
 import { NextApiRequest } from 'next';
 import { getToken } from 'next-auth/jwt';
 
@@ -64,8 +65,16 @@ class HttpClient {
    *
    */
   async request<T>(cb: RequestFn<T>): Promise<T> {
-    const result = await cb(this.baseHttpClient);
-    return result.data;
+    try {
+      const result = await cb(this.baseHttpClient);
+      return result.data;
+    } catch (error) {
+      const err = error as ApiError;
+      console.group(`error response`);
+      console.log(JSON.stringify(err.request));
+      console.log(JSON.stringify(err.response));
+      throw error;
+    }
   }
 }
 export const httpClient = new HttpClient();
