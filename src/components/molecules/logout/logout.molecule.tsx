@@ -1,21 +1,20 @@
 import * as React from 'react';
 
-import Button from '@mui/material/Button';
+import Button, { ButtonProps } from '@mui/material/Button';
 
-interface LogoutProps {
+interface LogoutProps extends ButtonProps {
   username: string;
-  avatar: string;
+  avatar?: string;
   onClickLogout(): void;
 }
 
 export function Logout(props: LogoutProps) {
-  const { onClickLogout } = props;
+  const { username, onClickLogout, ...others } = props;
 
   return (
     <Button
-      id="signout-button"
-      aria-controls={open ? 'basic-menu' : undefined}
-      aria-haspopup="true"
+      {...others}
+      aria-label={username}
       aria-expanded={open ? 'true' : undefined}
       onClick={onClickLogout}
       sx={{ minWidth: 100 }}

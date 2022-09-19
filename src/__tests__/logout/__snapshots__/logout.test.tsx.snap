@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Logout /> should render 1`] = `
+<button
+  aria-expanded="true"
+  aria-label="username"
+  avatar=""
+  class="MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButtonBase-root css-1f9myti-MuiButtonBase-root-MuiButton-root"
+  data-testid="logout-button"
+  tabindex="0"
+  type="button"
+>
+  Sign Out
+  <span
+    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+  />
+</button>
+`;

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<BoxScroll /> expect render 1`] = `
+<div
+  class="MuiBox-root css-prcuy6"
+  data-testid="element"
+>
+  A child text
+</div>
+`;
