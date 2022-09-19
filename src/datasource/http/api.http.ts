@@ -71,8 +71,8 @@ class HttpClient {
     } catch (error) {
       const err = error as ApiError;
       console.group(`error response`);
-      console.log(JSON.stringify(err.request));
-      console.log(JSON.stringify(err.response));
+      console.log(JSON.stringify(err.toJSON()));
+      console.log(JSON.stringify(err.response.data));
       throw error;
     }
   }
